@@ -1,4 +1,4 @@
-var compare = require('compare-flat-package-tree-records')
+var sort = require('sort-flat-package-tree')
 
 module.exports = function (name, version, range, tree) {
   // Create a new dependency record for the parent.
@@ -26,8 +26,7 @@ module.exports = function (name, version, range, tree) {
 
   tree.push(parent)
 
-  // Return a sorted tree, as merge-flat-package-trees does.
-  tree.sort(compare)
+  sort(tree)
 
   return tree
 }
