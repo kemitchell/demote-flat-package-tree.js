@@ -1,21 +1,21 @@
 {
   "name": "demote-flat-package-tree",
-  "version": "0.0.0",
   "description": "demote direct dependencies to indirect dependencies",
+  "version": "0.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
-  "repository": "kemitchell/demote-flat-package-tree.js",
-  "files": [
-    "index.js"
-  ],
-  "license": "MIT",
+  "dependencies": {
+    "compare-flat-package-tree-records": "^1.0.0"
+  },
   "devDependencies": {
     "defence-cli": "^2.0.0",
     "replace-require-self": "^1.1.1"
   },
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "repository": "kemitchell/demote-flat-package-tree.js",
   "scripts": {
     "test": "defence README.md | replace-require-self | node && echo All tests passed."
-  },
-  "dependencies": {
-    "compare-flat-package-tree-records": "^1.0.0"
   }
 }
