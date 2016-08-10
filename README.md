@@ -32,10 +32,11 @@ of `a@1.0.0` (`b@1.0.0`) into links from `a@1.0.0`:
 
 ```javascript
 var demote = require('demote-flat-package-tree')
+var assert = require('assert')
 
 demote('a', '1.0.0', '^1.0.0', tree)
 
-require('assert').deepEqual(
+assert.deepEqual(
   tree,
   [
     {
@@ -53,6 +54,44 @@ require('assert').deepEqual(
       name: 'c',
       version: '1.0.0',
       links: []
+    }
+  ]
+)
+```
+
+```javascript
+var missingCandD = [
+  {
+    name: 'b',
+    version: '1.0.0',
+    range: '^1.0.0',
+    links: [{name: 'c', range: '^1.0.0'}]
+  },
+  {
+    name: 'd',
+    range: '^1.0.0',
+    links: []
+  }
+]
+
+demote('a', '1.0.0', '^1.0.0', missingCandD)
+
+assert.deepEqual(
+  missingCandD,
+  [
+    {
+      name: 'a',
+      version: '1.0.0',
+      range: '^1.0.0',
+      links: [
+        {name: 'b', range: '^1.0.0', version: '1.0.0'},
+        {name: 'd', range: '^1.0.0'}
+      ]
+    },
+    {
+      name: 'b',
+      version: '1.0.0',
+      links: [{name: 'c', range: '^1.0.0'}]
     }
   ]
 )

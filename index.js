@@ -9,19 +9,26 @@ module.exports = function (name, version, range, tree) {
     // Create links from the new parent to all direct dependencies in
     // the existing tree.
     links: tree.reduce(function (links, dependency) {
-      return dependency.range
-      ? links.concat({
-        name: dependency.name,
-        version: dependency.version,
-        range: dependency.range
-      })
-      : links
+      if (dependency.range) {
+        var record = {
+          name: dependency.name,
+          range: dependency.range
+        }
+        if (dependency.version) {
+          record.version = dependency.version
+        }
+        links.push(record)
+      }
+      return links
     }, [])
   }
 
   // Demote direct dependencies in the tree to indirect dependencies.
   tree.forEach(function (dependency) {
     delete dependency.range
+    if (dependency.version === undefined) {
+      tree.splice(tree.indexOf(dependency), 1)
+    }
   })
 
   tree.push(parent)
